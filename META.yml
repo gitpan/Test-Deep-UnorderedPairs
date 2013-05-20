@@ -10,7 +10,6 @@ build_requires:
   Test::Fatal: 0
   Test::More: 0.94
   Test::Warnings: 0
-  re: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
@@ -28,7 +27,7 @@ no_index:
 provides:
   Test::Deep::UnorderedPairs:
     file: lib/Test/Deep/UnorderedPairs.pm
-    version: 0.001
+    version: 0.002
 requires:
   Carp: 0
   Exporter: 0
@@ -42,10 +41,10 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Test-Deep-UnorderedPairs
   homepage: https://github.com/karenetheridge/Test-Deep-UnorderedPairs
   repository: https://github.com/karenetheridge/Test-Deep-UnorderedPairs.git
-version: 0.001
+version: 0.002
 x_Dist_Zilla:
   perl:
-    version: 5.017011
+    version: 5.016003
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
@@ -58,7 +57,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::AutoMetaResources
       name: '@Author::ETHER/AutoMetaResources'
-      version: 1.20
+      version: 1.110050
     -
       class: Dist::Zilla::Plugin::Authority
       name: '@Author::ETHER/Authority'
@@ -142,7 +141,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Test::MinimumVersion
       name: '@Author::ETHER/Test::MinimumVersion'
-      version: 2.000004
+      version: 2.000003
     -
       class: Dist::Zilla::Plugin::PodSyntaxTests
       name: '@Author::ETHER/PodSyntaxTests'
@@ -271,6 +270,10 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Author::ETHER/ConfirmRelease'
       version: 4.300034
+    -
+      class: Dist::Zilla::Plugin::Test::Kwalitee::Extra
+      name: Test::Kwalitee::Extra
+      version: v0.0.1
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'

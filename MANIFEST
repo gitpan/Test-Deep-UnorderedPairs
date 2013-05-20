@@ -7,6 +7,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+examples/synopsis.t
 lib/Test/Deep/UnorderedPairs.pm
 t/00-check-deps.t
 t/00-compile.t
@@ -17,6 +18,7 @@ xt/release/changes_has_content.t
 xt/release/cpan-changes.t
 xt/release/distmeta.t
 xt/release/eol.t
+xt/release/kwalitee.t
 xt/release/minimum-version.t
 xt/release/no-tabs.t
 xt/release/pod-coverage.t

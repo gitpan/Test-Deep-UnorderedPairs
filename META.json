@@ -57,15 +57,14 @@
             "Test::Deep" : "0",
             "Test::Fatal" : "0",
             "Test::More" : "0.94",
-            "Test::Warnings" : "0",
-            "re" : "0"
+            "Test::Warnings" : "0"
          }
       }
    },
    "provides" : {
       "Test::Deep::UnorderedPairs" : {
          "file" : "lib/Test/Deep/UnorderedPairs.pm",
-         "version" : "0.001"
+         "version" : "0.002"
       }
    },
    "release_status" : "stable",
@@ -81,10 +80,10 @@
          "web" : "https://github.com/karenetheridge/Test-Deep-UnorderedPairs"
       }
    },
-   "version" : "0.001",
+   "version" : "0.002",
    "x_Dist_Zilla" : {
       "perl" : {
-         "version" : "5.017011"
+         "version" : "5.016003"
       },
       "plugins" : [
          {
@@ -100,7 +99,7 @@
          {
             "class" : "Dist::Zilla::Plugin::AutoMetaResources",
             "name" : "@Author::ETHER/AutoMetaResources",
-            "version" : "1.20"
+            "version" : "1.110050"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
@@ -205,7 +204,7 @@
          {
             "class" : "Dist::Zilla::Plugin::Test::MinimumVersion",
             "name" : "@Author::ETHER/Test::MinimumVersion",
-            "version" : "2.000004"
+            "version" : "2.000003"
          },
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
@@ -367,6 +366,11 @@
             "class" : "Dist::Zilla::Plugin::ConfirmRelease",
             "name" : "@Author::ETHER/ConfirmRelease",
             "version" : "4.300034"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Test::Kwalitee::Extra",
+            "name" : "Test::Kwalitee::Extra",
+            "version" : "v0.0.1"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",

@@ -5,7 +5,6 @@ use Test::More;
 use Test::Warnings;
 use Test::Fatal;
 use Test::Deep qw(cmp_details deep_diag);
-use re 'is_regexp';
 use Test::Deep::UnorderedPairs;
 
 like(
@@ -70,7 +69,7 @@ while (my ($test_name, $test) = (shift(@tests), shift(@tests)))
         if (not $ok)
         {
             my $diag = deep_diag($stack);
-            if (is_regexp($test->{diag}))
+            if (__is_regexp($test->{diag}))
             {
                 like($diag, $test->{diag}, 'failure diagnostics');
             }
@@ -82,5 +81,9 @@ while (my ($test_name, $test) = (shift(@tests), shift(@tests)))
     };
 }
 
-done_testing;
+sub __is_regexp
+{
+    re->can('is_regexp') ? re::is_regexp(shift) : ref(shift) eq 'Regexp';
+}
 
+done_testing;

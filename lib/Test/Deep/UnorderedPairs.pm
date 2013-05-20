@@ -2,9 +2,9 @@ use strict;
 use warnings;
 package Test::Deep::UnorderedPairs;
 {
-  $Test::Deep::UnorderedPairs::VERSION = '0.001';
+  $Test::Deep::UnorderedPairs::VERSION = '0.002';
 }
-# git description: 02132a1
+# git description: v0.001-5-gf0c71ba
 
 BEGIN {
   $Test::Deep::UnorderedPairs::AUTHORITY = 'cpan:ETHER';
@@ -69,7 +69,7 @@ Test::Deep::UnorderedPairs - A Test::Deep plugin for comparing lists as if they 
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -97,15 +97,25 @@ version 0.001
 
 =head1 DESCRIPTION
 
-This module provides the sub C<unordered_pairs> (and C<tuples>, as a synonym)
+This module provides the sub C<unordered_pairs>
+(and C<tuples>, C<samehash>, as synonyms)
 to indicate the data being tested is a list of pairs that should be tested
-where the order of the pairs is insignificant.  This would be equivalent to
-testing the list is as if it were a hash.
+where the order of the pairs is insignificant.
 
 This is useful when testing a function that returns a list of hash elements as
 an arrayref, not a hashref.  One such application might be testing L<PSGI>
 headers, which are passed around as an arrayref:
 
+    my $response = [
+        '200',
+        [
+            'Content-Length' => '12',
+            'Content-Type' => 'text/plain',
+        ],
+        [ 'hello world!' ],
+    ];
+
+    # this test passes
     cmp_deeply(
         $response,
         [

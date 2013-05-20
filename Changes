@@ -1,5 +1,9 @@
 Revision history for Test-Deep-UnorderedPairs
 
+0.002     2013-05-20 08:54:13 PDT-0700 (Karen Etheridge)
+          - fix tests that would not run on perls pre-5.9.5 because
+            re::is_regexp was not available
+
 0.001     2013-05-18 20:37:48 PDT-0700 (Karen Etheridge)
           - Initial release.
 
