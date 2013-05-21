@@ -22,8 +22,10 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "Exporter" => 0,
+    "Test::Deep::ArrayLength" => 0,
     "Test::Deep::Cmp" => 0,
     "Test::Deep::Hash" => 0,
+    "Test::Deep::Set" => 0,
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
@@ -37,7 +39,7 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.94",
     "Test::Warnings" => 0
   },
-  "VERSION" => "0.002",
+  "VERSION" => "0.003",
   "test" => {
     "TESTS" => "t/*.t"
   }

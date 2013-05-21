@@ -4,8 +4,17 @@ use warnings FATAL => 'all';
 use Test::More;
 use Test::Warnings;
 use Test::Fatal;
-use Test::Deep qw(cmp_details deep_diag);
+use Test::Deep 'cmp_deeply';
 use Test::Deep::UnorderedPairs;
+
+use lib 't/lib';
+use Util;
+
+cmp_deeply(
+    [ Test::Deep::UnorderedPairs::_keys_of_list([ qw(a b c d e f g h) ]) ],
+    [ qw(a c e g) ],
+    '_keys_of_list',
+);
 
 like(
     exception { tuples(1) },
@@ -20,23 +29,29 @@ my @tests = (
         ok => 0,
         diag => qr/^Compared reftype\(\$data\)\n\s+got : 'HASH'\nexpect : 'ARRAY'\n$/,
     },
+    'array has an odd length' => {
+        got => [ 'foo' ],
+        exp => tuples(foo => 1),
+        ok => 0,
+        diag => qr/^Compared array length of \$data\n\s+got : array with 1 element\(s\)\nexpect : array with 2 element\(s\)\n$/,
+    },
     'key does not match' => {
         got => [ foo => 2 ],
         exp => tuples(bar => 2),
         ok => 0,
-        diag => "Comparing hash keys of \$data\nMissing: 'bar'\nExtra: 'foo'\n",
+        diag => "Comparing keys of \$data\nMissing: 'bar'\nExtra: 'foo'\n",
     },
     'value does not match' => {
         got => [ foo => 2 ],
         exp => tuples(foo => 1),
         ok => 0,
-        diag => qr/^Compared \$data->{"foo"}\n\s+got : '2'\nexpect : '1'\n$/,
+        diag => qr/^Compared \$data->\[1\]\n\s+got : '2'\nexpect : '1'\n$/,
     },
     'one of the values does not match' => {
         got => [ bar => 2, foo => 2 ],
         exp => tuples(foo => 1, bar => 2),
         ok => 0,
-        diag => qr/^Compared \$data->{"foo"}\n\s+got : '2'\nexpect : '1'\n$/,
+        diag => qr/^Compared \$data->\[3\]\n\s+got : '2'\nexpect : '1'\n$/,
     },
     'single tuple match' => {
         got => [ foo => 1 ],
@@ -60,30 +75,8 @@ while (my ($test_name, $test) = (shift(@tests), shift(@tests)))
 {
     last if not $test_name;
 
-    subtest $test_name => sub {
-        my ($ok, $stack) = cmp_details(@{$test}{qw(got exp)});
-
-        ok( !($ok xor $test->{ok}), 'test ' . ($test->{ok} ? 'passed' : 'failed'));
-        return if not Test::Builder->new->is_passing;
-
-        if (not $ok)
-        {
-            my $diag = deep_diag($stack);
-            if (__is_regexp($test->{diag}))
-            {
-                like($diag, $test->{diag}, 'failure diagnostics');
-            }
-            else
-            {
-                is($diag, $test->{diag}, 'failure diagnostics');
-            }
-        }
-    };
-}
-
-sub __is_regexp
-{
-    re->can('is_regexp') ? re::is_regexp(shift) : ref(shift) eq 'Regexp';
+    subtest $test_name => test_plugin(@{$test}{qw(got exp ok diag)});
+    BAIL_OUT('oops') if not Test::Builder->new->is_passing;
 }
 
 done_testing;
